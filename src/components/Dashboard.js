@@ -3,6 +3,12 @@ import Charts from './Charts';
 import DataTable from './DataTable';
 import { generateCharts } from '../utils/chartGenerator';
 import './Dashboard.css';
+import AIAssistant from "./AIAssistant";
+import { generateBusinessSummary } from "../utils/businessSummary";
+
+const summary = generateBusinessSummary(data);
+
+<AIAssistant summary={summary} />
 
 export default function Dashboard({ data, fileName, onReset }) {
   const [chartType, setChartType] = useState('auto');
