@@ -11,8 +11,9 @@ export default function Dashboard({ data, fileName, onReset }) {
   const [chartType, setChartType] = useState('auto');
   const [filterText, setFilterText] = useState('');
 
-  const summary = generateBusinessSummary(data);
-  <AIAssistant summary={summary} />
+   const summary = useMemo(() => {
+    return generateBusinessSummary(data);
+  }, [data]);
 
   const charts = useMemo(() => {
     return generateCharts(data, chartType);
@@ -100,6 +101,12 @@ export default function Dashboard({ data, fileName, onReset }) {
           total={data.rowCount}
           filtered={filteredData.length}
         />
+      </div>
+
+      {/* AI Assistant */}
+      <div className="assistant-section">
+        <h3>🤖 AI Operations Assistant</h3>
+        <AIAssistant summary={summary} />
       </div>
 
       {/* Footer */}
