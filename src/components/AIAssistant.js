@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./AIAssistant.css";
+import ReactMarkdown from "react-markdown";
 
 export default function AIAssistant({ summary }) {
   const [question, setQuestion] = useState("");
@@ -55,7 +56,13 @@ export default function AIAssistant({ summary }) {
         {loading ? "Thinking..." : "Ask"}
       </button>
 
-      {answer && <div className="ai-answer">{answer}</div>}
+      {
+        answer && (
+          <div className="ai-answer">
+            <ReactMarkdown>{answer}</ReactMarkdown>
+          </div>
+        );
+      }
     </div>
   );
 }
