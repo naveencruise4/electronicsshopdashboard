@@ -6,13 +6,13 @@ import './Dashboard.css';
 import AIAssistant from "./AIAssistant";
 import { generateBusinessSummary } from "../utils/businessSummary";
 
-const summary = generateBusinessSummary(data);
-
-<AIAssistant summary={summary} />
 
 export default function Dashboard({ data, fileName, onReset }) {
   const [chartType, setChartType] = useState('auto');
   const [filterText, setFilterText] = useState('');
+
+  const summary = generateBusinessSummary(data);
+  <AIAssistant summary={summary} />
 
   const charts = useMemo(() => {
     return generateCharts(data, chartType);
