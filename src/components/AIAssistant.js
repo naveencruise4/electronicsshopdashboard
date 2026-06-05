@@ -12,7 +12,7 @@ export default function AIAssistant({ summary }) {
 
     try {
       const response = await fetch(
-        "YOUR_BACKEND_ENDPOINT",
+        "https://retail-ai-buddy.fearlessnaveen4.workers.dev/",
         {
           method: "POST",
           headers: {
@@ -35,7 +35,7 @@ export default function AIAssistant({ summary }) {
 
   return (
     <div className="ai-container">
-      <h2>🤖 AI Operations Assistant</h2>
+    //  <h2>🤖 AI Operations Assistant</h2>
 
       <input
         value={question}
