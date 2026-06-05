@@ -4,11 +4,13 @@ import "./AIAssistant.css";
 export default function AIAssistant({ summary }) {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const askQuestion = async () => {
     if (!question.trim()) return;
 
-    setAnswer("Thinking...");
+    setLoading(true);
+    setAnswer("");
 
     try {
       const response = await fetch(
@@ -25,32 +27,35 @@ export default function AIAssistant({ summary }) {
         }
       );
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
       const result = await response.json();
 
-      setAnswer(result.answer);
+      setAnswer(result?.answer || "No response received from AI.");
     } catch (err) {
-      setAnswer("Unable to process request.");
+      console.error(err);
+      setAnswer("Unable to process request. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="ai-container">
-
       <input
         value={question}
         onChange={(e) => setQuestion(e.target.value)}
         placeholder="Ask anything about your business..."
+        disabled={loading}
       />
 
-      <button onClick={askQuestion}>
-        Ask
+      <button onClick={askQuestion} disabled={loading}>
+        {loading ? "Thinking..." : "Ask"}
       </button>
 
-      {answer && (
-        <div className="ai-answer">
-          {answer}
-        </div>
-      )}
+      {answer && <div className="ai-answer">{answer}</div>}
     </div>
   );
 }
