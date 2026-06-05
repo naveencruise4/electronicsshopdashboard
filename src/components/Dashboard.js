@@ -11,8 +11,13 @@ export default function Dashboard({ data, fileName, onReset }) {
   const [chartType, setChartType] = useState('auto');
   const [filterText, setFilterText] = useState('');
 
-   const summary = useMemo(() => {
-    return generateBusinessSummary(data);
+  const summary = useMemo(() => {
+    try {
+      return generateBusinessSummary(data);
+    } catch (err) {
+      console.error("Summary generation failed:", err);
+      return {};
+    }
   }, [data]);
 
   const charts = useMemo(() => {
