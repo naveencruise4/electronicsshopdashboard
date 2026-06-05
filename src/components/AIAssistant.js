@@ -35,7 +35,6 @@ export default function AIAssistant({ summary }) {
 
   return (
     <div className="ai-container">
-    //  <h2>🤖 AI Operations Assistant</h2>
 
       <input
         value={question}
